@@ -23,6 +23,9 @@ public class User {
 	@Nonnull
 	private String password;
 
+	public User() {
+	}
+
 	public UUID getId() {
 		return id;
 	}
