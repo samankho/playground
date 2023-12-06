@@ -16,7 +16,7 @@ import dev.saman.playground.model.User;
 import dev.saman.playground.service.UserService;
 
 @RestController
-@RequestMapping(path = "/api/u")
+@RequestMapping(path = "/api/users")
 public class UserController {
 	private final UserService userService;
 
@@ -47,13 +47,13 @@ public class UserController {
 		return user;
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/id/{id}")
 	public void deleteUser(@PathVariable UUID id) {
 		userService.remove(id);
 	}
 
 	@PostMapping("/register")
 	public User createUser(@RequestBody User user) {
-		return userService.save(user.getName(), user.getEmail(), user.getPassword());
+		return userService.save(user.getEmail(), user.getPassword(), user.getName());
 	}
 }

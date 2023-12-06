@@ -31,7 +31,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
-	public User save(String name, String email, String password) {
+	public User save(String email, String password, String name) {
 		User user = new User();
 		user.setName(name);
 		user.setEmail(email);
