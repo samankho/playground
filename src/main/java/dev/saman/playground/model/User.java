@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class User {
+
 	@Id
 	@GeneratedValue
 	private UUID id;
@@ -57,4 +58,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

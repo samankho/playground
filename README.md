@@ -13,3 +13,12 @@ To run, execute `mvn clean spring-boot:run` from the root directory.
 The backend will be available via http://localhost:8080. 
 
 ### Frontend
+
+# Test
+
+# Development
+### Backend
+Copy `settings.xml` from the root directory to /Users/<User_Name>/.m2 (Windows) or /home/<User_Name>/.m2 (Linux).
+
+For code formatting, run `mvn spring-javaformat:apply` from the root directory.
+It performs automatic code formatting.

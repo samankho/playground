@@ -7,5 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import dev.saman.playground.model.User;
 
 public interface UserRepository extends CrudRepository<User, UUID> {
+
 	User findByEmail(String email);
+
 }
