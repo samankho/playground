@@ -1,5 +1,7 @@
 package dev.saman.playground.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import jakarta.annotation.Nonnull;
@@ -7,6 +9,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -24,7 +29,15 @@ public class User {
 	@Nonnull
 	private String password;
 
+	@ManyToOne
+	@JoinColumn(name = "grp_id")
+	private Group group;
+
+	@OneToMany(mappedBy = "admin")
+	private Set<Group> adminOfGroups;
+
 	public User() {
+		adminOfGroups = new HashSet<>();
 	}
 
 	public UUID getId() {
@@ -57,6 +70,22 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Set<Group> getAdminOfGroups() {
+		return adminOfGroups;
+	}
+
+	public void setAdminOfGroups(Set<Group> adminOfGroups) {
+		this.adminOfGroups = adminOfGroups;
 	}
 
 }

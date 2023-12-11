@@ -31,7 +31,7 @@ public class UserController {
 	}
 
 	@GetMapping("/id/{id}")
-	public User getAllUser(@PathVariable UUID id) {
+	public User getUserById(@PathVariable UUID id) {
 		User user = userService.get(id);
 		if (user == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
