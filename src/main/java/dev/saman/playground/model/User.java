@@ -73,12 +73,12 @@ public class User {
 		this.password = password;
 	}
 
-	public Group getGroup() {
-		return group;
+	public Set<Group> getGroups() {
+		return groups;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setGroups(Set<Group> groups) {
+		this.groups = groups;
 	}
 
 	public Set<Group> getAdminOfGroups() {
