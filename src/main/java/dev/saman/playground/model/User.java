@@ -10,7 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -29,9 +30,9 @@ public class User {
 	@Nonnull
 	private String password;
 
-	@ManyToOne
-	@JoinColumn(name = "grp_id")
-	private Group group;
+	@ManyToMany
+	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+	private Set<Group> groups;
 
 	@OneToMany(mappedBy = "admin")
 	private Set<Group> adminOfGroups;

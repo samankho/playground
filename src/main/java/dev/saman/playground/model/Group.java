@@ -15,7 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -45,7 +45,7 @@ public class Group {
 	@JoinColumn(name = "admin_id")
 	private User admin;
 
-	@OneToMany(mappedBy = "group")
+	@ManyToMany(mappedBy = "groups")
 	private Set<User> subscriber;
 
 	public Group() {
