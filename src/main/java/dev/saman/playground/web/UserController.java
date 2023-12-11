@@ -31,7 +31,7 @@ public class UserController {
 	}
 
 	@GetMapping("/id/{id}")
-	public User getUser(@PathVariable UUID id) {
+	public User getAllUser(@PathVariable UUID id) {
 		User user = userService.get(id);
 		if (user == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -40,8 +40,17 @@ public class UserController {
 	}
 
 	@GetMapping("/mail/{email}")
-	public User getUser(@PathVariable String email) {
-		User user = userService.get(email);
+	public User getUserByEmail(@PathVariable String email) {
+		User user = userService.getByEmail(email);
+		if (user == null)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+		return user;
+	}
+
+	@GetMapping("/name/{name}")
+	public User getUserByName(@PathVariable String name) {
+		User user = userService.getByName(name);
 		if (user == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 

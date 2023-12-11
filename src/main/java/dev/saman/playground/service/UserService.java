@@ -24,8 +24,12 @@ public class UserService {
 		return userRepository.findById(id).orElse(null);
 	}
 
-	public User get(String email) {
+	public User getByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+
+	public User getByName(String name) {
+		return userRepository.findByName(name);
 	}
 
 	public void remove(UUID id) {

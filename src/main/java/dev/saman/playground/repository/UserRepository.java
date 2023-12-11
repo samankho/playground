@@ -10,4 +10,6 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
 	User findByEmail(String email);
 
+	User findByName(String name);
+
 }
