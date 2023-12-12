@@ -31,7 +31,8 @@ public class User {
 	private String password;
 
 	@ManyToMany
-	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "group_id"))
 	private Set<Group> groups;
 
 	@OneToMany(mappedBy = "admin")
