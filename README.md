@@ -1,9 +1,9 @@
 # Introduction
-This is a playground for testing Spring Boot &amp; JPA/Hibernate
+This is a playground for testing Spring Boot, JPA/Hibernate &amp; Neo4j.
 
 # Run
 ### Backend
-Install [MySQL](https://dev.mysql.com/downloads/mysql/) on your system.
+Install [MySQL](https://dev.mysql.com/downloads/mysql/) and [Neo4j](https://neo4j.com/download/) on your system.
 
 Copy the contents of the `dot_env_example` to a new file called `.env` in the same directory and adjust credentials for production DB.
 
