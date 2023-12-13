@@ -1,5 +1,6 @@
 package dev.saman.playground.service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +38,8 @@ public class GroupService {
 		group.setName(name);
 		group.setTitle(title);
 		group.setDescription(description);
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		group.setCreated_at(currentDateTime);
 		groupRepository.save(group);
 
 		return group;

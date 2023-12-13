@@ -2,11 +2,11 @@ package dev.saman.playground.repository;
 
 import java.util.UUID;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 import dev.saman.playground.model.User;
 
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends Neo4jRepository<User, UUID> {
 
 	User findByEmail(String email);
 

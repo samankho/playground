@@ -1,20 +1,12 @@
 package dev.saman.playground.model;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
 
-@Entity
+@Node
 public class User {
 
 	@Id
@@ -23,23 +15,11 @@ public class User {
 
 	private String name;
 
-	@Column(unique = true)
-	@Nonnull
 	private String email;
 
-	@Nonnull
 	private String password;
 
-	@ManyToMany
-	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "group_id"))
-	private Set<Group> groups;
-
-	@OneToMany(mappedBy = "admin")
-	private Set<Group> adminOfGroups;
-
 	public User() {
-		adminOfGroups = new HashSet<>();
 	}
 
 	public UUID getId() {
@@ -72,22 +52,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Set<Group> getGroups() {
-		return groups;
-	}
-
-	public void setGroups(Set<Group> groups) {
-		this.groups = groups;
-	}
-
-	public Set<Group> getAdminOfGroups() {
-		return adminOfGroups;
-	}
-
-	public void setAdminOfGroups(Set<Group> adminOfGroups) {
-		this.adminOfGroups = adminOfGroups;
 	}
 
 }
