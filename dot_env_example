@@ -1,6 +1,7 @@
-MYSQL_DBNAME = playground
+MYSQL_DBNAME = mysql
 MYSQL_USERNAME = root
 MYSQL_PASSWORD = password
 
+NEO4J_DBNAME = neo4j
 NEO4J_USERNAME = neo4j
 NEO4J_PASSWORD = password
