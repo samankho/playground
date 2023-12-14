@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.saman.playground.model.Group;
 import dev.saman.playground.service.GroupService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/groups")
@@ -64,7 +65,7 @@ public class GroupController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Group> createGroup(@RequestBody Group group) throws URISyntaxException {
+	public ResponseEntity<Group> createGroup(@Valid @RequestBody Group group) throws URISyntaxException {
 		if (groupService.getByName(group.getName()) != null)
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
@@ -74,7 +75,7 @@ public class GroupController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Group> updateGroup(@PathVariable UUID id, @RequestBody Group group) {
+	public ResponseEntity<Group> updateGroup(@PathVariable UUID id, @Valid @RequestBody Group group) {
 		Group old_grp = groupService.get(id);
 		if (old_grp == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);

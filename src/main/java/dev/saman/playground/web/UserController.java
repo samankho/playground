@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.saman.playground.model.User;
 import dev.saman.playground.service.UserService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -63,7 +64,7 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
+	public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException {
 		if (userService.getByEmail(user.getEmail()) != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
@@ -73,7 +74,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable UUID id, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@PathVariable UUID id, @Valid @RequestBody User user) {
 		User old_user = userService.get(id);
 		if (old_user == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -91,4 +92,5 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
 	}
+
 }
