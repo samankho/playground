@@ -35,7 +35,7 @@ public class GroupController {
 		return groupService.get();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Group> getGroupById(@PathVariable UUID id) {
 		Group result = groupService.get(id);
 		if (result == null)
@@ -44,7 +44,7 @@ public class GroupController {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping("/{name}")
+	@GetMapping("/name/{name}")
 	public ResponseEntity<Group> getGroupByName(@PathVariable String name) {
 		Group result = groupService.getByName(name);
 		if (result == null)
@@ -71,7 +71,7 @@ public class GroupController {
 
 		Group result = groupService.create(group.getName(), group.getTitle(), group.getDescription());
 
-		return ResponseEntity.created(new URI("api/groups/" + result.getId())).body(result);
+		return ResponseEntity.created(new URI("api/groups/id/" + result.getId())).body(result);
 	}
 
 	@PutMapping("/{id}")

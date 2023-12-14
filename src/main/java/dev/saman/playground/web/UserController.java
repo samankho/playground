@@ -35,7 +35,7 @@ public class UserController {
 		return userService.get();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable UUID id) {
 		User result = userService.get(id);
 		if (result == null)
@@ -44,7 +44,7 @@ public class UserController {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
 		User result = userService.getByEmail(email);
 		if (result == null)
@@ -70,7 +70,7 @@ public class UserController {
 
 		User result = userService.create(user.getEmail(), user.getPassword(), user.getName());
 
-		return ResponseEntity.created(new URI("/api/users/" + result.getId())).body(result);
+		return ResponseEntity.created(new URI("/api/users/id/" + result.getId())).body(result);
 	}
 
 	@PutMapping("/{id}")
