@@ -29,20 +29,30 @@ public class GroupService {
 		return groupRepository.findByName(name);
 	}
 
-	public void remove(UUID id) {
+	public void deleteById(UUID id) {
 		groupRepository.deleteById(id);
 	}
 
-	public Group save(String name, String title, String description) {
+	public Group create(String name, String title, String description) {
 		Group group = new Group();
 		group.setName(name);
 		group.setTitle(title);
 		group.setDescription(description);
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		group.setCreated_at(currentDateTime);
+		group.setCreated_at(LocalDateTime.now());
+		group.setUpdated_at(null);
 		groupRepository.save(group);
 
 		return group;
+	}
+
+	public Group update(UUID id, Group group) {
+		Group result = groupRepository.findById(id).orElse(null);
+		result.setTitle(group.getTitle());
+		result.setDescription(group.getDescription());
+		result.setUpdated_at(LocalDateTime.now());
+		groupRepository.save(result);
+
+		return result;
 	}
 
 }
