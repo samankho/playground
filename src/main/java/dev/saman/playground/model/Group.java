@@ -8,6 +8,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.Relationship.Direction;
 
 @Node
 public class Group {
@@ -27,6 +29,9 @@ public class Group {
 
 	@LastModifiedDate
 	private LocalDateTime updated_at;
+
+	@Relationship(type = "CREATED_BY", direction = Direction.OUTGOING)
+	private User admin;
 
 	public Group() {
 	}
@@ -77,6 +82,14 @@ public class Group {
 
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public User getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(User admin) {
+		this.admin = admin;
 	}
 
 }

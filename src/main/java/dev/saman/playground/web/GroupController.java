@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import dev.saman.playground.model.Group;
+import dev.saman.playground.model.User;
 import dev.saman.playground.service.GroupService;
 import jakarta.validation.Valid;
 
@@ -65,11 +66,13 @@ public class GroupController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Group> createGroup(@Valid @RequestBody Group group) throws URISyntaxException {
+	public ResponseEntity<Group> createGroup(@Valid User user, @Valid @RequestBody Group group)
+			throws URISyntaxException {
 		if (groupService.getByName(group.getName()) != null)
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
 		Group result = groupService.create(group.getName(), group.getTitle(), group.getDescription());
+		groupService.setAdmin(user, group);
 
 		return ResponseEntity.created(new URI("api/groups/id/" + result.getId())).body(result);
 	}

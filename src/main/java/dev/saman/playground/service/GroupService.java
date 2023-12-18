@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import dev.saman.playground.model.Group;
+import dev.saman.playground.model.User;
 import dev.saman.playground.repository.GroupRepository;
 
 @Service
@@ -53,6 +54,10 @@ public class GroupService {
 		groupRepository.save(result);
 
 		return result;
+	}
+
+	public void setAdmin(User user, Group group) {
+		group.setAdmin(user);
 	}
 
 }
