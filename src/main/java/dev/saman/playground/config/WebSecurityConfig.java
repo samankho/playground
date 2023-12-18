@@ -13,35 +13,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.stereotype.Service;
-
-import dev.saman.playground.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@Service
 public class WebSecurityConfig {
-	private final UserService userService;
-
-	public WebSecurityConfig(UserService userService) {
-		this.userService = userService;
-	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				(authorize) -> authorize.requestMatchers("/login", "/api/**").permitAll().anyRequest().authenticated())
-				.httpBasic(Customizer.withDefaults()).formLogin(Customizer.withDefaults());
+		http.authorizeHttpRequests((authorize) -> authorize
+				.requestMatchers("/login", "/RegisterForms.html", "/LoginForms.html", "/api/users/*").permitAll()
+				.anyRequest().authenticated()).httpBasic(Customizer.withDefaults())
+				// .csrf(csrf ->
+				// csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+				.csrf(csrf -> csrf.disable())
+				.headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.sameOrigin()));
 
 		return http.build();
 	}
 
 	@Bean
 	public UserDetailsService userDetailsService() throws UsernameNotFoundException {
-		UserDetails userDetails = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
-				.build();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+		String result = encoder.encode("test123");
+		UserDetails user2 = User.builder().username("user").password(result).roles("USER").build();
 
-		return new InMemoryUserDetailsManager(userDetails);
+		return new InMemoryUserDetailsManager(user2);
 	}
 
 	@Bean

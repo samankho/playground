@@ -3,6 +3,7 @@ package dev.saman.playground.service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dev.saman.playground.model.User;
@@ -13,8 +14,11 @@ public class UserService {
 
 	private final UserRepository userRepository;
 
-	public UserService(UserRepository userRepository) {
+	private final PasswordEncoder passwordEncoder;
+
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public Iterable<User> get() {
@@ -41,7 +45,8 @@ public class UserService {
 		User user = new User();
 		user.setName(name);
 		user.setEmail(email);
-		user.setPassword(password);
+		String encodedPassword = passwordEncoder.encode(password);
+		user.setPassword(encodedPassword);
 		user.setCreated_at(LocalDateTime.now());
 		user.setUpdated_at(null);
 		userRepository.save(user);
