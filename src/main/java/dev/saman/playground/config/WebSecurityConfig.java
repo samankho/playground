@@ -13,19 +13,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
 	@Bean
+	public CsrfTokenRepository csrfTokenRepository() {
+		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		repository.setHeaderName("X-XSRF-TOKEN");
+		return repository;
+	}
+
+	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+		requestHandler.setCsrfRequestAttributeName(null);
 		http.authorizeHttpRequests((authorize) -> authorize
 				.requestMatchers("/login", "/RegisterForms.html", "/LoginForms.html", "/api/users/*").permitAll()
 				.anyRequest().authenticated()).httpBasic(Customizer.withDefaults())
-				// .csrf(csrf ->
-				// csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-				.csrf(csrf -> csrf.disable())
+				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+						.csrfTokenRequestHandler(requestHandler))
 				.headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.sameOrigin()));
 
 		return http.build();

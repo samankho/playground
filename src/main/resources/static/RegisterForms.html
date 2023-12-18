@@ -58,6 +58,7 @@
 
     <script>
         function createUser() {
+        	const csrfToken = document.cookie.match('(^|;)\\s*XSRF-TOKEN\\s*=\\s*([^;]+)')?.pop();
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var name = document.getElementById('name').value;
@@ -66,6 +67,7 @@
 			    method: 'POST',
 			    headers: {
 			        'Content-Type': 'application/json',
+			        'X-XSRF-Token': csrfToken
 			    },
 			    body: JSON.stringify({
 			        email: email,
