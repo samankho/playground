@@ -41,14 +41,18 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorize) -> authorize
-				.requestMatchers("/login", "/RegisterForms.html", "/LoginForms.html", "/api/users/*").permitAll()
-				.anyRequest().authenticated()).httpBasic(Customizer.withDefaults()).authenticationProvider(authProvider)
-				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-						.csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
-				.headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.sameOrigin()))
-				.addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
-				.formLogin(Customizer.withDefaults());
-//				.csrf(csrf -> csrf.disable())
+			.requestMatchers("/login", "/RegisterForms.html", "/LoginForms.html", "/api/users/*")
+			.permitAll()
+			.anyRequest()
+			.authenticated())
+			.httpBasic(Customizer.withDefaults())
+			.authenticationProvider(authProvider)
+			.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+			.headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.sameOrigin()))
+			.addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
+			.formLogin(Customizer.withDefaults());
+		// .csrf(csrf -> csrf.disable())
 
 		return http.build();
 	}
@@ -72,4 +76,5 @@ public class WebSecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 }

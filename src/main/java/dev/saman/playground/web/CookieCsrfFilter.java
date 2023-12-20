@@ -11,8 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Spring Security 6 doesn't set a XSRF-TOKEN cookie by default. This solution
- * is <a href=
+ * Spring Security 6 doesn't set a XSRF-TOKEN cookie by default. This solution is <a href=
  * "https://github.com/spring-projects/spring-security/issues/12141#issuecomment-1321345077">
  * recommended by Spring Security.</a>
  */
@@ -28,4 +27,5 @@ public class CookieCsrfFilter extends OncePerRequestFilter {
 		response.setHeader(csrfToken.getHeaderName(), csrfToken.getToken());
 		filterChain.doFilter(request, response);
 	}
+
 }

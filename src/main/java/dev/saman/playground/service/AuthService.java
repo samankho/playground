@@ -8,6 +8,7 @@ import dev.saman.playground.repository.UserRepository;
 
 @Service
 public class AuthService {
+
 	private final UserRepository userRepository;
 
 	private final PasswordEncoder passwordEncoder;
@@ -36,4 +37,5 @@ public class AuthService {
 
 		return user;
 	}
+
 }
